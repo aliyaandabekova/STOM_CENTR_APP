@@ -20,5 +20,14 @@ urlpatterns = [
     path('modify_wd/<int:doctor_day_id>/',DoctorDayView.as_view({
         'put':'update',
         'get':'retrieve'
-    }))
+    })),
+    path('order/',OrderViewSet.as_view({
+        'post':'create',
+        'get':'list'
+    }),name='order'),
+    path('order/<int:order_id>/',OrderViewSet.as_view({
+        'get':'retrieve',
+        'put':'update',
+        'delete':'destroy'
+    }),name='order_detail')
 ]
