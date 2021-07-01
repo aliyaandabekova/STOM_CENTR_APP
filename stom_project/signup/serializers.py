@@ -10,3 +10,36 @@ class DoctorDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = DoctorDay
         fields = '__all__'
+
+class DoctordayDisplaySerializer(serializers.ModelSerializer):
+    doctor = serializers.StringRelatedField()
+    day = serializers.StringRelatedField()
+
+    class Meta:
+        model = DoctorDay
+        fields = '__all__'
+
+
+class DayDisplaySerializer(serializers.ModelSerializer):
+    doctorday_set = DoctordayDisplaySerializer(many=True,read_only=True)
+
+    class Meta:
+        model = DoctorDay
+        fields = ['id','doctorday_set']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = ['day','doctor']
+
+
+class OrderDisplaySerializer(serializers.ModelSerializer):
+    client = serializers.StringRelatedField()
+    day = serializers.StringRelatedField()
+    doctor = serializers.StringRelatedField()
+    class Meta:
+        model = Order
+        fields = ['id','date_created','client','day','doctor']
+
