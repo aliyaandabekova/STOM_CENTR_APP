@@ -42,3 +42,13 @@ class OrderPermissions(permissions.BasePermission):
 
 
 
+class DoctorPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        if request.method in ['PUT','DELETE'] and request.user.username == obj.username:
+            return True
+
+
+
+
